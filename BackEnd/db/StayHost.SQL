@@ -53,7 +53,6 @@ CREATE TABLE Reviews (
     FOREIGN KEY (RoomID) REFERENCES Rooms(RoomID)
 );
 
--- สร้างตาราง Admins (ผู้ดูแลระบบ)
 CREATE TABLE Admins (
     AdminID VARCHAR(12) NOT NULL PRIMARY KEY,
     Username VARCHAR(50) NOT NULL,
@@ -63,13 +62,11 @@ CREATE TABLE Admins (
     PhoneNumber VARCHAR(20)
 );
 
--- สร้างตาราง AccessRights (สิทธิ์การเข้าถึง)
 CREATE TABLE AccessRights (
     RightID VARCHAR(12) NOT NULL PRIMARY KEY,
     RightName VARCHAR(100) NOT NULL
 );
 
--- สร้างตาราง AdminAccess (การเชื่อมตาราง Admins และ AccessRights)
 CREATE TABLE AdminAccess (
     AdminID VARCHAR(12),
     RightID VARCHAR(12),
