@@ -35,7 +35,7 @@ CREATE TABLE Bookings (
 );
 
 CREATE TABLE Payments (
-    PaymentID VARCHAR(12) PRIMARY KEY,
+    PaymentID VARCHAR(12) NOT NULL PRIMARY KEY,
     BookingID VARCHAR(12),
     PaymentDate DATE NOT NULL,
     Amount DECIMAL(10,2) NOT NULL,
@@ -44,11 +44,36 @@ CREATE TABLE Payments (
 );
 
 CREATE TABLE Reviews (
-    ReviewID VARCHAR(12) PRIMARY KEY,
+    ReviewID VARCHAR(12) NOT NULL PRIMARY KEY,
     UserID VARCHAR(12),
     RoomID VARCHAR(12),
     Rating INT NOT NULL,
     Comment TEXT,
     FOREIGN KEY (UserID) REFERENCES Users(UserID),
     FOREIGN KEY (RoomID) REFERENCES Rooms(RoomID)
+);
+
+-- สร้างตาราง Admins (ผู้ดูแลระบบ)
+CREATE TABLE Admins (
+    AdminID VARCHAR(12) NOT NULL PRIMARY KEY,
+    Username VARCHAR(50) NOT NULL,
+    Password VARCHAR(255) NOT NULL,
+    FullName VARCHAR(100) NOT NULL,
+    Email VARCHAR(100) NOT NULL,
+    PhoneNumber VARCHAR(20)
+);
+
+-- สร้างตาราง AccessRights (สิทธิ์การเข้าถึง)
+CREATE TABLE AccessRights (
+    RightID VARCHAR(12) NOT NULL PRIMARY KEY,
+    RightName VARCHAR(100) NOT NULL
+);
+
+-- สร้างตาราง AdminAccess (การเชื่อมตาราง Admins และ AccessRights)
+CREATE TABLE AdminAccess (
+    AdminID VARCHAR(12),
+    RightID VARCHAR(12),
+    FOREIGN KEY (AdminID) REFERENCES Admins(AdminID),
+    FOREIGN KEY (RightID) REFERENCES AccessRights(RightID),
+    PRIMARY KEY (AdminID, RightID)
 );
