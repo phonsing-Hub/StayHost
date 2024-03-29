@@ -6,8 +6,8 @@ const db = knex.default({
         user: 'root',
         password: '99213221',
         host: 'localhost',
-        port: 3306,
-        database: 'CPE302'
+        port: 4082,
+        database: 'stayhost'
     }
 });
 

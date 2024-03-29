@@ -7,6 +7,7 @@ var cors = require('cors'); // เพิ่ม middleware cors
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/user.routes.js');
+var roomsRoute = require('./routes/rooms.routes.js');
 
 var app = express();
 
@@ -26,6 +27,8 @@ http://localhost:3000
 app.use('/', indexRouter);
 http://localhost:3000/users
 app.use('/users', usersRouter);
+http://localhost:3000/rooms
+app.use('/rooms', roomsRoute);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
