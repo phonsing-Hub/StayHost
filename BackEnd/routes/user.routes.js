@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var { postUsersForSidebar ,getUsersForSidebar } = require("../controllers/user.controller");
+var { postUsersForSidebar ,getUsersForSidebar, getUser } = require("../controllers/user.controller");
 /* GET users listing. */
 router.post('/',postUsersForSidebar);
-router.get('/',getUsersForSidebar);
+router.get('/',getUser);
 
 module.exports = router;

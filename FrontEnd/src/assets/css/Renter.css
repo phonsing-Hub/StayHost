@@ -1,0 +1,28 @@
+.contenner{
+    max-width: 1300px;
+    margin: 0 auto;
+
+}
+
+.title{
+    margin-top: 80px;
+    margin-bottom: 20px;
+}
+
+.tb{
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.manu{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.sha{
+    max-width: 400px;
+}
+

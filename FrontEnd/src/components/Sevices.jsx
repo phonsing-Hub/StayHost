@@ -1,5 +1,5 @@
 import React from 'react'
-import Nav from './Nav'
+import Nav from '../controllers/Nav'
 import '../assets/css/Sevices.css'
 function Sevices() {
   return (

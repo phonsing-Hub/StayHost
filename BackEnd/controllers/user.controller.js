@@ -57,7 +57,33 @@ const getUsersForSidebar = async (req, res) => {
         res.json(err);
     }
 };
+
+const getUser = async (req, res) => {
+    try {
+        // Execute the SQL query using Knex
+        const users = await db
+            .select(
+                'IDCard',
+                'Firstname',
+                'Lastname',
+                'Birthdate',
+                db.raw('TIMESTAMPDIFF(YEAR, Birthdate, CURDATE()) AS Age'),
+                'Gender',
+                'Address',
+                'PhoneNumber'
+            )
+            .from('Users');
+
+        // Return the fetched users as JSON response
+        res.json(users);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
+
 module.exports = {
     postUsersForSidebar,
-    getUsersForSidebar
+    getUsersForSidebar,
+    getUser
 };

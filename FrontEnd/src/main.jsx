@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider} from "react-router-dom";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import Renter from "./components/Renter";
-import Amergency from "./components/Amergency";
+import Rooms from "./components/Rooms";
 import Sevices from "./components/Sevices";
 import Bills from "./components/Bills";
 import Payment from "./components/Payment";
@@ -21,8 +21,8 @@ const router = createBrowserRouter([
     element: <Renter/>,
   },
   {
-    path: "Amergency",
-    element: <Amergency/>,
+    path: "Rooms",
+    element: <Rooms/>,
   },
   {
     path: "Sevices",
