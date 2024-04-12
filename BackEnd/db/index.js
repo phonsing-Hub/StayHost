@@ -1,22 +1,18 @@
+const mysql = require('mysql2/promise');
 
-const knex = require('knex');
-const db = knex.default({
-    client: 'mysql2',
-    connection: {
-        user: 'root',
-        password: '99213221',
-        host: 'localhost',
-        port: 3306,
-        database: 'stayhost'
-    }
-});
-
-db.raw('SELECT 1')
-    .then(() => {
-        console.log('Connected to MySQL database');
-    })
-    .catch((err) => {
-        console.error('Failed to connect to MySQL database:', err);
+const initMySQL = async () => {
+  let conn = null;
+  try {
+    conn = await mysql.createConnection({
+      host: 'localhost',
+      user: 'root',
+      password: '99213221',
+      database: 'StayHost'
     });
-
-module.exports = db;
+    console.log('Connected to MySQL database');
+  } catch (error) {
+    console.error('Error connecting to MySQL:', error);
+  }
+  return conn;
+}
+module.exports = {initMySQL};

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Nav from '../controllers/Nav'
-import '../assets/css/Rooms.css'
+import '../../public/css/Rooms.css'
 function Rooms() {
   const [Rooms, setRooms] = useState([]);
   const [showForm, setShowForm] = useState(false);

@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Nav from '../controllers/Nav';
-import '../assets/css/Renter.css'
-import Formuser from '../controllers/Formuser';
+import '../../public/css/Renter.css'
+import { Formuserinsert, Formuserupdate, Formuserdelete } from '../controllers/Formuser';
 
 function Renter() {
   const [bookings, setBookings] = useState([]);
-  const [showForm, setShowForm] = useState(false);
+  const [showForminsert, setShowForminsert] = useState(false);
+  const [showFormupdate, setShowFormupdate] = useState(false);
+  const [showFormdelete, setShowFormdelete] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,12 +23,28 @@ function Renter() {
     fetchData();
   }, []);
 
-  const handleToggleForm = () => {
-    setShowForm(!showForm); // เมื่อคลิกปุ่ม Add+ ให้สลับค่าของ showForm
+  const handleToggleForminsert = () => {
+    setShowForminsert(!showForminsert); 
   }
 
-  const closehandleToggleForm = () => {
-    setShowForm(!showForm);
+  const closehandleToggleForminsert = () => {
+    setShowForminsert(!showForminsert);
+  }
+
+  const handleToggleFormupdate = () => {
+    setShowFormupdate(!showFormupdate); 
+  }
+
+  const closehandleToggleFormupdate = () => {
+    setShowFormupdate(!showFormupdate);
+  }
+
+  const handleToggleFormdelete = () => {
+    setShowFormdelete(!showFormdelete); 
+  }
+
+  const closehandleToggleFormdelete = () => {
+    setShowFormdelete(!showFormdelete);
   }
 
   return (
@@ -45,9 +63,15 @@ function Renter() {
               </form>
             </div>
           </div>
-          <button type="button" className="btn btn-primary" onClick={handleToggleForm}>Add+</button>
+         <div className="btt">
+          <button type="button" className="btn btn-primary" onClick={handleToggleForminsert}>Add+</button>
+          <button type="button" class="btn btn-warning" onClick={handleToggleFormupdate}>Update</button>
+          <button type="button" class="btn btn-danger" onClick={handleToggleFormdelete}>Delete</button>
+         </div>
         </div>
-        {showForm && <Formuser showForm={showForm} closehandleToggleForm={closehandleToggleForm} />}
+        {showForminsert && <Formuserinsert  closehandleToggleForminsert={closehandleToggleForminsert} />}
+        {showFormupdate && <Formuserupdate  closehandleToggleFormupdate={closehandleToggleFormupdate} />}
+        {showFormdelete && <Formuserdelete  closehandleToggleFormdelete={closehandleToggleFormdelete} />}
 
         <div className="tb">
           <table className="table table-hover table-striped">

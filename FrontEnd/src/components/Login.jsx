@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../assets/css/login.css';
+import '../../public/css/login.css';
 
 function Alert({ message }) {
   return (

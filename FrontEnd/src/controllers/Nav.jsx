@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import '../assets/css/Nav.css'
+import '../../public/css/Nav.css'
 function Nav() {
   let activeClassname = 'linkactive';
   let navlink = 'navlink';
@@ -12,7 +12,10 @@ function Nav() {
             aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
-          <a className="navbar-brand" href="#"> StayHost</a>
+          <div className="over">
+            <label htmlFor="">User Admin</label>
+            <img src="img/user.png" alt="overuser" />
+          </div>
           <div className="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar"
             aria-labelledby="offcanvasNavbarLabel">
             <div className="offcanvas-header">

@@ -1,6 +1,6 @@
 import React from 'react'
 import Nav from '../controllers/Nav'
-import '../assets/css/Sevices.css'
+import '../../public/css/Sevices.css'
 function Sevices() {
   return (
     <>
