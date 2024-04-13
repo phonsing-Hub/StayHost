@@ -1,111 +1,148 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import Nav from '../controllers/Nav';
-import '../../public/css/Renter.css'
-import { Formuserinsert, Formuserupdate, Formuserdelete } from '../controllers/Formuser';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Nav from "../controllers/Nav";
+import FormInsert from '../controllers/FormInsert'
+import FormUpdate from "../controllers/FormUpdate";
+import "../../public/css/Renter.css";
+import DataTable from "react-data-table-component";
 
 function Renter() {
-  const [bookings, setBookings] = useState([]);
+  const [userdata, setUserdata] = useState([]);
+  const [records, setRecords] = useState([]);
+  const [data, setData] = useState([]);
   const [showForminsert, setShowForminsert] = useState(false);
   const [showFormupdate, setShowFormupdate] = useState(false);
-  const [showFormdelete, setShowFormdelete] = useState(false);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:3000/users');
-        setBookings(response.data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   const handleToggleForminsert = () => {
     setShowForminsert(!showForminsert); 
   }
-
   const closehandleToggleForminsert = () => {
     setShowForminsert(!showForminsert);
   }
 
-  const handleToggleFormupdate = () => {
+
+  const handleToggleFormupdate = (row) => {
+    setData(row);
     setShowFormupdate(!showFormupdate); 
   }
-
   const closehandleToggleFormupdate = () => {
     setShowFormupdate(!showFormupdate);
   }
 
-  const handleToggleFormdelete = () => {
-    setShowFormdelete(!showFormdelete); 
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/api/users");
+        const modifiedData = response.data.map(user => ({
+          ...user,
+          Birthdate: new Date(user.Birthdate).toISOString().split('T')[0]
+        }));
+        setUserdata(modifiedData);
+        setRecords(modifiedData); // Set records after fetching and modifying data
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const columns = [
+    {
+      name: "IDCard",
+      selector: (row) => row.IDCard,
+      sortable: true,
+    },
+    {
+      name: "Firstname",
+      selector: (row) => row.Firstname,
+      sortable: true,
+    },
+    {
+      name: "Lastname",
+      selector: (row) => row.Lastname,
+    },
+    {
+      name: "Birthdate",
+
+      selector: (row) => row.Birthdate,
+    },
+    {
+      name: "Gender",
+      selector: (row) => row.Gender,
+      sortable: true,
+    },
+    {
+      name: "Address",
+      selector: (row) => row.Address,
+    },
+    {
+      name: "PhoneNumber",
+      selector: (row) => row.PhoneNumber,
+    }
+  ];
+
+  function handleFilter(event) {
+    const newData = userdata.filter((row) => {
+      return (
+        row.IDCard.toLowerCase().includes(event.target.value.toLowerCase()) ||
+        row.Firstname.toLowerCase().includes(event.target.value.toLowerCase())
+      );
+    });
+    setRecords(newData);
   }
 
-  const closehandleToggleFormdelete = () => {
-    setShowFormdelete(!showFormdelete);
-  }
+
+  const customStyles = {
+    headRow: {
+      style: {
+        backgroundColor: 'rgba(174, 174, 235, 0.80)',
+        boxShadow: '0px 0px 4px 0px rgba(96, 93, 93, 0.5)'
+      }
+    },
+    headCells: {
+      style: {
+        color: '#000000',
+        fontWeight: 'bold',
+      },
+    },
+    rows: {
+      style: {
+        cursor: 'pointer',
+      }
+    },
+  };
+
 
   return (
     <>
       <Nav />
-      <div className="contenner">
-        <div className="title">
-          <h1>Renter Information</h1>
-        </div>
-        <div className="manu">
-          <div className="sha">
-            <div className="container-fluid">
-              <form className="d-flex" role="search">
-                <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                <button className="btn btn-outline-success" type="submit">Search</button>
-              </form>
-            </div>
+      <div className="Renter">
+        <header className="Renter_header">
+          <h1>Renter</h1>
+          <hr />
+          <div className="Renter_Search">
+          <input className="form-control me-2" type="text" style={{width: 400}} placeholder="Firstname or IDCard ..." onChange={handleFilter}/>
+          <button type="button" className="btn btn-success" onClick={handleToggleForminsert}>New user +</button>
           </div>
-         <div className="btt">
-          <button type="button" className="btn btn-primary" onClick={handleToggleForminsert}>Add+</button>
-          <button type="button" class="btn btn-warning" onClick={handleToggleFormupdate}>Update</button>
-          <button type="button" class="btn btn-danger" onClick={handleToggleFormdelete}>Delete</button>
-         </div>
-        </div>
-        {showForminsert && <Formuserinsert  closehandleToggleForminsert={closehandleToggleForminsert} />}
-        {showFormupdate && <Formuserupdate  closehandleToggleFormupdate={closehandleToggleFormupdate} />}
-        {showFormdelete && <Formuserdelete  closehandleToggleFormdelete={closehandleToggleFormdelete} />}
-
-        <div className="tb">
-          <table className="table table-hover table-striped">
-            <thead>
-              <tr>
-                <th scope="col-8">RIDCard</th>
-                <th scope="col-5">Firstname</th>
-                <th scope="col-5">Lastname</th>
-                <th scope="col-4">Birthdate</th>
-                <th scope="col-1">Age</th>
-                <th scope="col-1">Gender</th>
-                <th scope="col-8">Address</th>
-                <th scope="col-8">PhoneNumber</th>
-              </tr>
-            </thead>
-            <tbody>
-              {bookings.map(user => (
-                <tr key={user.IDCard}>
-                  <td>{user.IDCard}</td>
-                  <td>{user.Firstname}</td>
-                  <td>{user.Lastname}</td>
-                  <td>{new Date(user.Birthdate).toLocaleDateString()}</td>
-                  <td>{user.Age}</td>
-                  <td>{user.Gender}</td>
-                  <td>{user.Address}</td>
-                  <td>{user.PhoneNumber}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        </header>
+        <div className="Renter_table">
+        {showForminsert && <FormInsert  closehandleToggleForminsert={closehandleToggleForminsert} />}
+        {showFormupdate && <FormUpdate  closehandleToggleFormupdate={closehandleToggleFormupdate} data={data}/>}
+        <DataTable
+          columns={columns}
+          data={records}
+          fixedHeader={true}
+          fixedHeaderScrollHeight="600px"
+          onRowClicked={handleToggleFormupdate} 
+          customStyles={customStyles}
+          highlightOnHover
+          pagination
+          />
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default Renter
+export default Renter;

@@ -16,7 +16,7 @@ function Nav() {
             <label htmlFor="">User Admin</label>
             <img src="img/user.png" alt="overuser" />
           </div>
-          <div className="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar"
+          <div className="offcanvas offcanvas-start" id="offcanvasNavbar"
             aria-labelledby="offcanvasNavbarLabel">
             <div className="offcanvas-header">
               <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>

@@ -1,34 +1,20 @@
-.contenner{
-    max-width: 1300px;
+.Renter{
+    max-width: 1600px;
     margin: 0 auto;
-
+    height: 100vh;
 }
 
-.title{
-    margin-top: 80px;
-    margin-bottom: 20px;
+.Renter_header{
+    padding-top: 90px;
 }
 
-.tb{
-    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
+.Renter_table{
+    box-shadow: 0px 0px 4px 0px rgba(96, 93, 93, 0.3);
+    border-radius: 10px;
 }
 
-.manu{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-    margin-bottom: 20px;
-    margin-top: 20px;
-}
-
-.sha{
-    max-width: 400px;
-}
-
-.btt{
-    width: 300px;
+.Renter_Search{
     display: flex;
     justify-content: space-between;
+    margin-bottom: 20px;
 }
-
