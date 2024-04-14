@@ -1,15 +1,16 @@
-const db = require('../db/index'); 
+const { initMySQL } = require("../../db");
 
-const getBookingsWithRooms = async (req, res) => {
-    try {
-      const bookingsWithRooms = await db('Rooms')
-            .select('RoomNumber', 'RoomType', 'RoomStatus', 'Price');
-      res.json(bookingsWithRooms);
-    } catch (error) {
-      res.status(500).json({ error: 'Internal Server Error' });
-    }
+const Rooms = async (req, res) => {
+  try {
+    const conn = await initMySQL(); // Call initMySQL to get the connection object
+    const [result] = await conn.query("SELECT * FROM Rooms");
+    res.json(result);
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
+};
   
   module.exports = {
-    getBookingsWithRooms
+    Rooms
 };

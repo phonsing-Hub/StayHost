@@ -1,31 +1,13 @@
-.contenner{
-    max-width: 1300px;
+.Room_contenner{
+    max-width: 1400px;
     margin: 0 auto;
-
+    height: 100vh;
 }
 
-.title{
-    margin-top: 80px;
-    margin-bottom: 20px;
+.Room_header{
+    padding-top: 90px;
+    padding-right: 40px;
+    padding-left: 40px;
 }
 
-.tb{
-    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
-    height: 70vh;
-    overflow: scroll;
-    border-radius: 20px;
-}
-
-.manu{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-    margin-bottom: 20px;
-    margin-top: 20px;
-}
-
-.sha{
-    max-width: 400px;
-}
 

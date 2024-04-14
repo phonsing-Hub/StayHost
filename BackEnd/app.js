@@ -10,6 +10,7 @@ var jwt = require('jsonwebtoken');
 var bcrypt = require('bcrypt');
 
 var usersrouter = require('./api/routes/user.routes');
+var roomsrouter = require('./api/routes/rooms.routes');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -22,6 +23,7 @@ app.use(cors({
 }));
 
 app.use('/api',usersrouter);
+app.use('/api',roomsrouter);
 
 
 app.use((req, res, next) => {

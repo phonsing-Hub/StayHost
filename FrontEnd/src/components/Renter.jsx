@@ -123,9 +123,10 @@ function Renter() {
           <hr />
           <div className="Renter_Search">
           <input className="form-control me-2" type="text" style={{width: 400}} placeholder="Firstname or IDCard ..." onChange={handleFilter}/>
-          <button type="button" className="btn btn-success" onClick={handleToggleForminsert}>New user +</button>
+          <button type="button" className="btn btn-primary" onClick={handleToggleForminsert}>Add+</button>
           </div>
         </header>
+        <div className="body_Renter_table">
         <div className="Renter_table">
         {showForminsert && <FormInsert  closehandleToggleForminsert={closehandleToggleForminsert} />}
         {showFormupdate && <FormUpdate  closehandleToggleFormupdate={closehandleToggleFormupdate} data={data}/>}
@@ -139,6 +140,7 @@ function Renter() {
           highlightOnHover
           pagination
           />
+        </div>
         </div>
       </div>
     </>

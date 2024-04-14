@@ -1,8 +1,39 @@
 import React from "react";
+import axios from "axios";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 import "../../public/css/FormUpdate.css";
+
+const MySwal = withReactContent(Swal);
 
 function FormUpdate({ closehandleToggleFormupdate, data }) {
   const [formData, setFormData] = React.useState(data);
+
+  const showSwal = () => {
+    MySwal.fire({
+      title: "คุณแน่ใจหรือไม่?",
+      text: "คุณต้องการลบรายการนี้?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "ตกลง",
+      cancelButtonText: "ยกเลิก",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`http://localhost:3000/api/user/${data.UserID}`)
+          .then(() => {
+            closehandleToggleFormupdate();
+            Swal.fire("Deleted!", "Your file has been deleted.", "success");
+          })
+          .catch((error) => {
+            console.error("Error deleting data:", error);
+            Swal.fire("Error!", "Failed to delete your file.", "error");
+          });
+      }
+    });
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -15,7 +46,31 @@ function FormUpdate({ closehandleToggleFormupdate, data }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log(formData);
+      const {
+        IDCard,
+        Firstname,
+        Lastname,
+        Birthdate,
+        Gender,
+        Address,
+        PhoneNumber,
+      } = formData;
+      if (
+        !IDCard ||
+        !Firstname ||
+        !Lastname ||
+        !Birthdate ||
+        !Gender ||
+        !Address ||
+        !PhoneNumber
+      ) {
+        console.error("Please fill in all fields");
+        return;
+      }
+      await axios.put(
+        `http://localhost:3000/api/user/${data.UserID}`,
+        formData
+      );
       closehandleToggleFormupdate();
     } catch (error) {
       console.log("Error submitting form data:", error);
@@ -142,10 +197,13 @@ function FormUpdate({ closehandleToggleFormupdate, data }) {
 
           <div className="submituser">
             <button className="btn btn-success" type="submit">
-              Submit form
+              Save
             </button>
           </div>
         </form>
+        <button type="button" class="btn btn-danger" onClick={showSwal}>
+          Delete
+        </button>
       </div>
     </>
   );
