@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Nav from "../controllers/Nav";
 import RoomTable from "react-data-table-component";
+import FormRoomInsert from "../controllers/FormRoomInsert";
 import "../../public/css/Rooms.css";
 
 function formatNumber(number) {
@@ -11,6 +12,14 @@ function formatNumber(number) {
 function Rooms() {
   const [roomdata, setRoomdata] = useState([]);
   const [records, setRecords] = useState([]);
+  const [showForminsert, setShowForminsert] = useState(false);
+
+  const handleToggleForminsert = () => {
+    setShowForminsert(!showForminsert); 
+  }
+  const closehandleToggleForminsert = () => {
+    setShowForminsert(!showForminsert);
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -101,12 +110,12 @@ function Rooms() {
               placeholder="Search..."
               onChange={handleFilter}
             />
-            <button type="button" className="btn btn-primary">
+            <button type="button" className="btn btn-primary" onClick={handleToggleForminsert}>
               Add+
             </button>
           </div>
         </header>
-
+        {showForminsert && <FormRoomInsert  closehandleToggleForminsert={closehandleToggleForminsert} />}
         <div className="body_Renter_table">
           <div className="Renter_table">
             <RoomTable

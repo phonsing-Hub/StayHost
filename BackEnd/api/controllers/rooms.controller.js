@@ -10,7 +10,98 @@ const Rooms = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+const createRoom = async (req, res) => {
+  try {
+    const RoomsData = req.body;
+    const conn = await initMySQL();
+    const [result] = await conn.query(
+      `
+      INSERT INTO Rooms (RoomNumber, RoomType, Price)
+        VALUES (?, ?, ?)
+      `,
+      [
+        RoomsData.RoomNumber,
+        RoomsData.RoomType,
+        RoomsData.Price
+      ]
+    );
+
+    if (result.affectedRows === 1) {
+      res.status(201).json({ message: "User created successfully" });
+    } else {
+      res.status(500).json({ error: "Failed to create user" });
+    }
+  } catch (error) {
+    console.error("Error creating user:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
   
+const getRoom = async (req, res) => {
+  try {
+    const roomId = req.params.roomId; // Assuming the user ID is passed as a route parameter named userId
+    const conn = await initMySQL(); // Assuming you have an initMySQL function to establish a database connection
+
+    // Query the database to fetch the user with the specified ID
+    const [roomRows] = await conn.query(
+      "SELECT * FROM Rooms WHERE RoomID = ?",
+      [roomId]
+    );
+
+    // If no user with the specified ID is found, send a 404 Not Found response
+    if (roomRows.length === 0)
+      res.status(404).json({ error: "Room not found" });
+    // If a user with the specified ID is found, send the user data as JSON response
+    else res.json(roomRows[0]);
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+const updateRoom = async (req, res) => {
+  try {
+    const roomId = req.params.roomId;
+    const roomData = req.body; // Assuming user data to update is sent in the request body
+
+    const conn = await initMySQL();
+    const [result] = await conn.query("UPDATE Rooms SET ? WHERE RoomID = ?", [
+      roomData,
+      roomId,
+    ]);
+
+    if (result.affectedRows === 0)
+      res.status(404).json({ error: "Room not found" });
+    else res.json({ message: "Room updated successfully" });
+  } catch (error) {
+    console.error("Error updating room:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+const deleteRoom = async (req, res) => {
+  try {
+    const roomId = req.params.roomId;
+
+    const conn = await initMySQL();
+    const [result] = await conn.query("DELETE FROM Rooms WHERE RoomID = ?", [
+      roomId,
+    ]);
+
+    if (result.affectedRows === 0)
+      res.status(404).json({ error: "Room not found" });
+    else res.json({ message: "Room deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting room:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
   module.exports = {
-    Rooms
+    Rooms,
+    createRoom,
+    getRoom,
+    updateRoom,
+    deleteRoom
 };
