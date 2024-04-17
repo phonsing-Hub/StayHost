@@ -40,7 +40,7 @@ CREATE TABLE Rooms (
     Price DECIMAL(10,2) NOT NULL
 );
 ALTER TABLE Rooms AUTO_INCREMENT = 10;
-ALTER TABLE Rooms MODIFY COLUMN RoomStatus ENUM('Available', 'Occupied') NOT NULL DEFAULT 'Occupied';
+ALTER TABLE Rooms MODIFY COLUMN RoomStatus ENUM('Available', 'Occupied') NOT NULL DEFAULT 'Available';
 INSERT INTO Rooms (RoomNumber, RoomType, RoomStatus, Price)
 VALUES
     ('101', 'S', 'Available', 50.00),
