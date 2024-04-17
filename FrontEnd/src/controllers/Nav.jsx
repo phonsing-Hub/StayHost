@@ -1,9 +1,17 @@
-import React from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import {React} from 'react'
+import { Link, NavLink,useNavigate } from 'react-router-dom'
 import '../../public/css/Nav.css'
+
 function Nav() {
   let activeClassname = 'linkactive';
   let navlink = 'navlink';
+
+  const navigate = useNavigate();
+  const handleClick = () => {
+    localStorage.removeItem('Admin');
+    navigate('/Login');
+  };
+  
   return (
     <>
       <nav className="navbar fixed-top">
@@ -62,7 +70,7 @@ function Nav() {
                     <li>
                       <hr className="dropdown-divider" />
                     </li>
-                    <li><Link to='/Logout' className='navlink'><i className="bi bi-box-arrow-left"></i> Logout </Link></li>
+                    <li className='navlink' ><button type="button" class="btn btn-info" onClick={handleClick}>Logout</button></li>
                   </ul>
                 </li>
               </ul>

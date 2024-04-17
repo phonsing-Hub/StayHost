@@ -1,6 +1,7 @@
 import * as React from "react";
 import { createRoot } from "react-dom/client";
-import { createBrowserRouter, RouterProvider} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Cookies from 'js-cookie';
 //components
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
@@ -14,38 +15,36 @@ import Parcel from "./components/Parcel";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Dashboard/>
+    element: <Dashboard />,
   },
   {
     path: "Renter",
-    element: <Renter/>,
+    element: <Renter />,
   },
   {
     path: "Rooms",
-    element: <Rooms/>,
+    element: <Rooms />,
   },
   {
     path: "Sevices",
-    element: <Sevices/>,
+    element: <Sevices />,
   },
   {
     path: "Bills",
-    element: <Bills/>,
+    element: <Bills />,
   },
   {
     path: "Payment",
-    element: <Payment/>,
+    element: <Payment />,
   },
   {
     path: "Parcel",
-    element: <Parcel/>,
+    element: <Parcel />,
   },
   {
-    path: "Logout",
-    element: <div>Logout</div>,
+    path: "Login",
+    element: <Login />,
   },
 ]);
 
-createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router} />
-);
+createRoot(document.getElementById("root")).render(<RouterProvider router={router} />);

@@ -5,13 +5,13 @@ var createError = require('http-errors');
 var path = require('path');
 var logger = require('morgan');
 var cors = require('cors'); 
-var cookieParser = require('cookie-parser');
-var jwt = require('jsonwebtoken');
-var bcrypt = require('bcrypt');
+var cookieParser = require("cookie-parser");
+var bcrypt = require("bcrypt");
 const swaggerUI = require('swagger-ui-express');
 
 var usersrouter = require('./api/routes/user.routes');
 var roomsrouter = require('./api/routes/rooms.routes');
+var admin = require('./api/routes/admin.routes');
 var apiDoc = require('./middleware/_api-doc');
 
 app.use(logger('dev'));
@@ -21,11 +21,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors({
   credentials: true,
-  origin: ['http://localhost:3030']
+  origin: 'http://localhost:3030'
 }));
 
 app.use('/api',usersrouter);
 app.use('/api',roomsrouter);
+app.use('/api',admin);
 
 app.use('/api-doc', swaggerUI.serve, swaggerUI.setup(apiDoc));
 
