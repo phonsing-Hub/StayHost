@@ -6,7 +6,7 @@ function Payment() {
     <>
     <Nav/>
     <div className="contenner">
-      <h1>Fub</h1>
+      <h1>Hello</h1>
       </div>
     </>
   )
